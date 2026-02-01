@@ -1,0 +1,25 @@
+version: 0.2
+
+env:
+  parameter-store:
+    DOCKER_USERNAME: "/portfolio/docker/username"
+    DOCKER_PASSWORD: "/portfolio/docker/password"
+
+phases:
+  pre_build:
+    commands:
+      - echo Build started on `date`
+      - docker --version
+      - echo Logging in to Docker Hub...
+      - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+  build:
+    commands:
+      - echo Building Docker image...
+      - docker build -t $DOCKER_USERNAME/portfolio-image:latest .
+
+  post_build:
+    commands:
+      - echo Pushing Docker image to Docker Hub...
+      - docker push $DOCKER_USERNAME/portfolio-image:latest
+      - echo Build completed on `date`
