@@ -23,6 +23,7 @@ AWS CodePipeline
 - AmazonS3FullAccess
 - AWSCodePipelineFullAccess
 - AWSCodeDeployFullAccess
+- AmazonSSMReadOnlyAccess  // this allows the codebuild to access the envs from the security manager
 
 **Trust relationship**
 ```json
